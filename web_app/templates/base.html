@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+</head>
+<body>
+<div class="container" style="padding-top: 20px">
+    <form action="{% url 'web_app:index' %}" method="post" class="form-inline text-center" style="padding-left: 80px">
+        {% csrf_token %}
+        <div class="form-group">
+        {{ form }}
+        <input type="submit" class="btn btn-outline-secondary form-control  mx-sm-5" value="Выбрать"></div>
+
+    </form>
+    </div>
+<div class="clear"></div><br><br>
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',// bar, horizontalBar, pie, line, doughnut, radar, polarArea
+
+            data: {
+                labels: {{data_x|safe}},
+                datasets: [{
+                    data: {{data_y|safe}},
+                }]
+            },
+            options: {
+                title: {
+                    display: false,
+                },
+                legend: {
+                    display: false,
+                }
+
+            }
+
+
+        });
+
+    </script>
+</body>
+</html>
